@@ -64,4 +64,4 @@ for (let i = 0; i < board.length; i++) {
     mytable+="</tr>"
 }
 mytable += "</table>";
-document.getElementById("ID").innerHTML = mytable; 
+document.getElementsByTagName("body").appendChild(mytable)
