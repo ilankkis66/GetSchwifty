@@ -54,5 +54,14 @@ class Board{
   
 var length = prompt("enter board length")
 var board = new Board(length)
-console.log(board)
 
+var mytable = "<table>";
+for (let i = 0; i < board.length; i++) {
+    mytable+="<tr>"
+    for (let j = 0; j < board.length; j++) {
+        mytable += "<td>" + board.array[i*board.length+j] + "</td>"; 
+    }
+    mytable+="</tr>"
+}
+mytable += "</table>";
+document.getElementById("ID").innerHTML = mytable; 
