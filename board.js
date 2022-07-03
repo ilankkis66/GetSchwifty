@@ -12,7 +12,6 @@ class Board{
         } while (!this.#CheckValidBoard(array));
         return array;
     }
-
     #Shuffle(array) {
         var tmp, current, top = array.length;
         if(top) while(--top) {
@@ -52,16 +51,18 @@ class Board{
     }
 }
   
+
 var length = prompt("enter board length")
 var board = new Board(length)
 
-var mytable = "<table>";
 for (let i = 0; i < board.length; i++) {
-    mytable+="<tr>"
-    for (let j = 0; j < board.length; j++) {
-        mytable += "<td>" + board.array[i*board.length+j] + "</td>"; 
+    for (let j = 0; j < board.length; j++) { 
+        var div = document.createElement("div")
+        var btn = document.createElement("button")
+        btn.innerHTML = `${board.array[i*board.length+j]}`;
+        div.appendChild(btn);
+        document.body.append(div)
     }
-    mytable+="</tr>"
 }
-mytable += "</table>";
-document.getElementsByTagName("body").appendChild(mytable)
+
+
