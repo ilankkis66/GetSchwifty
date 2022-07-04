@@ -26,5 +26,11 @@ export default class HtmlView{
         var cell = document.getElementById(`${secondIndex}`)
         cell.innerHTML = board.array[secondIndex].value   
     }
+    write(msg){
+        alert(msg)
+    }
+    read (msg){
+        return prompt(msg)
+    }
 }
 

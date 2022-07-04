@@ -1,8 +1,10 @@
 
 export default class Game{
-    constructor(board,view){
-        this.board=board;
+    constructor(boardFactory,view){
+        this.boardFactory = boardFactory
         this.view = view;
+        var len = view.read("enter board length")
+        this.board=boardFactory.CreateBoard(len);
     }
     play(){
         this.view.boardToTable(this);
@@ -24,10 +26,10 @@ export default class Game{
             this.#switch(id,id+length)            
         }
         else{
-            alert("invalid cell")
+            this.view.write("invalid cell")
         }
         if (this.#checkWin()){
-            alert("you win")
+            this.view.write("you win")
         }
     }
     #switch(index,secondIndex){

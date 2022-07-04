@@ -4,8 +4,7 @@ import HtmlView from "./HtmlView.js"
 
 
 
-var length = prompt("enter board length")
-var board = new BoardFactory().CreateBoard(length)
+var boardFactory = new BoardFactory();
 var view = new HtmlView()
-var game = new Game(board,view)
+var game = new Game(boardFactory,view)
 game.play()
