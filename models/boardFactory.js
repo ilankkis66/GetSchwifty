@@ -24,19 +24,15 @@ export default class numericBoardFactory{
     }
     #CheckValidBoard(array,length){
         var errors = this.#CountErrors(array);
-        if (length % 2 == 1){
-            return errors%2==0;
-        }
-        else{
-            var nullIndex=-1;
+        if (length % 2 == 0){
             for (let i = 0; i < array.length; i++) {
                 if (array[i].value == 0){
-                    nullIndex = Math.floor(i/length)+1;   
+                    errors += Math.floor(i/length)+1;   
                     break;
                 }                
             }
-            return (errors+nullIndex)%2==0;
         }
+        return errors%2==0;
     }
     #CountErrors(array){
         var errors=0;
