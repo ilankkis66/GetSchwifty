@@ -6,9 +6,9 @@ export default class numericBoardFactory {
         for (var array = [], i = 1; i < length * length; ++i) {
             array[i] = new Cell(i, i);
         }
-        array[0] = new Cell(0, length * length)
+        array[0] = new Cell(0, length * length);
         do {
-            array = this.#Shuffle(array)
+            array = this.#Shuffle(array);
         } while (!this.#CheckValidBoard(array, length));
         return new Board(length, array);
     }

@@ -1,34 +1,34 @@
 export default class Game {
     constructor(boardFactory, view) {
-        this.boardFactory = boardFactory
+        this.boardFactory = boardFactory;
         this.view = view;
-        var len = view.read("enter board length")
+        var len = view.read("enter board length");
         this.board = boardFactory.CreateBoard(len);
     }
     play() {
         this.view.boardToTable(this);
     }
     cellOnClick(position) {
-        var id = parseInt(position)
-        var array = this.board.array
-        var length = this.board.length
+        var id = parseInt(position);
+        var array = this.board.array;
+        var length = this.board.length;
         if (Math.floor(id / length) == Math.floor((id - 1) / length) && array[id - 1].id == array.length) {
-            this.#switch(id, id - 1)
+            this.#switch(id, id - 1);
         }
         else if (Math.floor(id / length) == Math.floor((id + 1) / length) && array[id + 1].id == array.length) {
-            this.#switch(id, id + 1)
+            this.#switch(id, id + 1);
         }
         else if (id - length >= 0 && array[id - length].id == array.length) {
-            this.#switch(id, id - length)
+            this.#switch(id, id - length);
         }
         else if (id + length < array.length && array[id + length].id == array.length) {
-            this.#switch(id, id + length)
+            this.#switch(id, id + length);
         }
         else {
-            this.view.write("invalid cell")
+            this.view.write("invalid cell");
         }
         if (this.#checkWin()) {
-            this.view.write("you win")
+            this.view.write("you win");
         }
     }
     #switch(index, secondIndex) {
@@ -36,12 +36,12 @@ export default class Game {
         this.#switchInUI(index, secondIndex);
     }
     #switchInBoard(index, secondIndex) {
-        let tmp = this.board.array[secondIndex]
-        this.board.array[secondIndex] = this.board.array[index]
-        this.board.array[index] = tmp
+        let tmp = this.board.array[secondIndex];
+        this.board.array[secondIndex] = this.board.array[index];
+        this.board.array[index] = tmp;
     }
     #switchInUI(index, secondIndex) {
-        this.view.UpdateUI(index, secondIndex, this.board)
+        this.view.UpdateUI(index, secondIndex, this.board);
     }
     #checkWin() {
         if (this.board.array[this.board.array.length - 1].id != this.board.array.length) {
@@ -52,6 +52,6 @@ export default class Game {
                 return false;
             }
         }
-        return true
+        return true;
     }
 }
