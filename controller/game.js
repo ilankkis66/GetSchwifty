@@ -45,11 +45,11 @@ export default class Game{
         this.view.UpdateUI(index,secondIndex,this.board)
     }
     #checkWin() {
-        if (this.board.array[this.board.array.length-1].value!=0){
+        if (this.board.array[this.board.array.length-1].id!=this.board.array.length){
             return false;
         }
         for (let i = 0; i < this.board.array.length-1; i++) {
-            if (this.board.array[i].value != i+1 ){
+            if (this.board.array[i].id != i+1 ){
                 return false;
             }                        
         }
