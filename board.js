@@ -1,16 +1,19 @@
 class Board{
-    constructor(length){
+    constructor(length,array){
         this.length = parseInt(length);
-        this.array = this.#CreateBoard()
+        this.array = array
     }
-    #CreateBoard(){
-        for (var array=[],i=0;i<this.length*this.length;++i){
+}
+
+class BoardFactory{
+    CreateBoard(length){
+        for (var array=[],i=0;i<length*length;++i){
             array[i]=new Cell(i);
         } 
         do {
             array = this.#Shuffle(array)
-        } while (!this.#CheckValidBoard(array));
-        return array;
+        } while (!this.#CheckValidBoard(array,length));
+        return new Board(length,array);
     }
     #Shuffle(array) {
         var tmp, current, top = array.length;
@@ -22,9 +25,9 @@ class Board{
         }
         return array;
     }
-    #CheckValidBoard(array){
+    #CheckValidBoard(array,length){
         var errors = this.#CountErrors(array);
-        if (this.length % 2 == 1){
+        if (length % 2 == 1){
             return errors%2==0;
         }
         else{
@@ -63,7 +66,21 @@ class Game{
     }
     play() {
     }
-    
+    switch(index,secondIndex){
+        this.#switchInBoard(index,secondIndex);
+        this.#switchInUI(index,secondIndex);
+    }
+    #switchInBoard(index,secondIndex){
+        let tmp = this.board.array[secondIndex]
+        this.board.array[secondIndex] = this.board.array[index]
+        this.board.array[index] = tmp 
+    }
+    #switchInUI(index,secondIndex){
+        var cell = document.getElementById(`${index}`)
+        cell.innerHTML = ' '
+        var cell = document.getElementById(`${secondIndex}`)
+        cell.innerHTML = this.board.array[secondIndex].value   
+    }
     checkWin() {
         if (this.board.array[this.board.array.length-1].value!=0){
             return false;
@@ -91,47 +108,26 @@ function boardToHtmlTable(board) {
         table.appendChild(row)
     }
 }
+
 function addOnClick(game) {
     var table = document.getElementById("board")
     for (let i = 0; i < table.rows.length; i++) {
         for (let j = 0; j < table.rows[i].cells.length; j++)
         table.rows[i].cells[j].onclick = function () {
             id = parseInt(table.rows[i].cells[j].id)
-            if (Math.floor(id/3)==Math.floor((id-1)/3) && game.board.array[id-1].value == 0){
-                let tmp = game.board.array[id-1]
-                game.board.array[id-1] = game.board.array[id]
-                game.board.array[id] = tmp 
-                var cell = document.getElementById(`${id}`)
-                cell.innerHTML = ' '
-                var cell = document.getElementById(`${id-1}`)
-                cell.innerHTML = game.board.array[id-1].value           
+            array = game.board.array
+            length = game.board.length
+            if (Math.floor(id/length)==Math.floor((id-1)/length) && array[id-1].value == 0){ 
+                game.switch(id,id-1)       
             } 
-            else if (Math.floor(id/3)==Math.floor((id+1)/3) && game.board.array[id+1].value == 0){
-                let tmp = game.board.array[id+1]
-                game.board.array[id+1] = game.board.array[id]
-                game.board.array[id] = tmp 
-                var cell = document.getElementById(`${id}`)
-                cell.innerHTML = ' '
-                var cell = document.getElementById(`${id+1}`)
-                cell.innerHTML = game.board.array[id+1].value           
+            else if (Math.floor(id/length)==Math.floor((id+1)/length) && array[id+1].value == 0){
+                game.switch(id,id+1)          
             }
-            else if (id-game.board.length>=0 && game.board.array[id-game.board.length].value == 0){
-                let tmp = game.board.array[id-game.board.length]
-                game.board.array[id-game.board.length] = game.board.array[id]
-                game.board.array[id] = tmp 
-                var cell = document.getElementById(`${id}`)
-                cell.innerHTML = ' '
-                var cell = document.getElementById(`${id-game.board.length}`)
-                cell.innerHTML = game.board.array[id-game.board.length].value           
+            else if (id-length>=0 && array[id-length].value == 0){
+                game.switch(id,id-length)          
             }
-            else if (id+game.board.length<game.board.array.length && game.board.array[id+game.board.length].value == 0){
-                let tmp = game.board.array[id+game.board.length]
-                game.board.array[id+game.board.length] = game.board.array[id]
-                game.board.array[id] = tmp 
-                var cell = document.getElementById(`${id}`)
-                cell.innerHTML = ' '
-                var cell = document.getElementById(`${id+game.board.length}`)
-                cell.innerHTML = game.board.array[id+game.board.length].value           
+            else if (id+length<array.length && array[id+length].value == 0){
+                game.switch(id,id+length)            
             }
             else{
                 alert("invalid cell")
@@ -144,7 +140,7 @@ function addOnClick(game) {
 }
 window.addEventListener("load",()=>{
     var length = prompt("enter board length")
-    var board = new Board(length)
+    var board = new BoardFactory().CreateBoard(length)
     var game = new Game(board)
     boardToHtmlTable(game.board)
     addOnClick(game)
