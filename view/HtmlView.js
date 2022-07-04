@@ -19,7 +19,6 @@ export default class HtmlView{
         }
         div.appendChild(table)
     }
-
     UpdateUI(index,secondIndex,board){
         var cell = document.getElementById(`${index}`)
         cell.innerHTML = ' '

@@ -1,4 +1,3 @@
-
 export default class Game{
     constructor(boardFactory,view){
         this.boardFactory = boardFactory
@@ -54,6 +53,5 @@ export default class Game{
             }                        
         }
         return true
-
     }
 }

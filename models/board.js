@@ -4,10 +4,3 @@ export default class Board{
         this.array = array
     }
 }
-
-
-
-  
-
-
-
