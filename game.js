@@ -1,7 +1,11 @@
 
 export default class Game{
-    constructor(board){
+    constructor(board,view){
         this.board=board;
+        this.view = view;
+    }
+    play(){
+        this.view.boardToTable(this);
     }
     cellOnClick(position) {
         var id = parseInt(position)
@@ -35,11 +39,8 @@ export default class Game{
         this.board.array[secondIndex] = this.board.array[index]
         this.board.array[index] = tmp 
     }
-    #switchInUI(index,secondIndex){
-        var cell = document.getElementById(`${index}`)
-        cell.innerHTML = ' '
-        var cell = document.getElementById(`${secondIndex}`)
-        cell.innerHTML = this.board.array[secondIndex].value   
+    #switchInUI(index,secondIndex){ 
+        this.view.UpdateUI(index,secondIndex,this.board)
     }
     #checkWin() {
         if (this.board.array[this.board.array.length-1].value!=0){
