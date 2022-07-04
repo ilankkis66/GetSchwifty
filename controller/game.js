@@ -13,16 +13,16 @@ export default class Game{
         var id = parseInt(position)
         var array = this.board.array
         var length = this.board.length
-        if (Math.floor(id/length)==Math.floor((id-1)/length) && array[id-1].value == 0){ 
+        if (Math.floor(id/length)==Math.floor((id-1)/length) && array[id-1].id == array.length){ 
             this.#switch(id,id-1)       
         } 
-        else if (Math.floor(id/length)==Math.floor((id+1)/length) && array[id+1].value == 0){
+        else if (Math.floor(id/length)==Math.floor((id+1)/length) && array[id+1].id == array.length){
             this.#switch(id,id+1)          
         }
-        else if (id-length>=0 && array[id-length].value == 0){
+        else if (id-length>=0 && array[id-length].id == array.length){
             this.#switch(id,id-length)          
         }
-        else if (id+length<array.length && array[id+length].value == 0){
+        else if (id+length<array.length && array[id+length].id == array.length){
             this.#switch(id,id+length)            
         }
         else{

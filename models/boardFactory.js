@@ -1,11 +1,12 @@
 import Cell from "./cell.js"
 import Board from "./board.js"
 
-export default class BoardFactory{
+export default class numericBoardFactory{
     CreateBoard(length){
-        for (var array=[],i=0;i<length*length;++i){
-            array[i]=new Cell(i);
+        for (var array=[],i=1;i<length*length;++i){
+            array[i]=new Cell(i,i);
         } 
+        array[0]=new Cell(0,length*length)
         do {
             array = this.#Shuffle(array)
         } while (!this.#CheckValidBoard(array,length));

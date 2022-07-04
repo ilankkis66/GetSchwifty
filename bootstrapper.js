@@ -1,6 +1,6 @@
-import BoardFactory from "./boardFactory.js"
-import Game from "./game.js"
-import HtmlView from "./HtmlView.js"
+import BoardFactory from "./models/boardFactory.js"
+import Game from "./controller/game.js"
+import HtmlView from "./view/HtmlView.js"
 
 
 
